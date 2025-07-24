@@ -19,4 +19,4 @@ Bu proje, Sayıştay ve TÜİK verilerini kullanarak yerel yönetimlerin harcama
 
 ```bash
 pip install streamlit shap scikit-learn matplotlib pandas
-streamlit run yerel_yonetim_dashboard.py
+streamlit run yerel_yonetim_dash.py
