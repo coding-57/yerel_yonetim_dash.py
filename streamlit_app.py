@@ -61,10 +61,4 @@ plt.figure()
 shap.plots.beeswarm(shap_values, show=False)
 st.pyplot(plt.gcf())
 
-import streamlit as st
-import streamlit.components.v1 as components
-
-# Örnek gözlem seçimi
-index = st.slider("🧬 Force plot için örnek seçin", 0, len(X_test) - 1, 0)
-instance = X_test.iloc[index]
 
