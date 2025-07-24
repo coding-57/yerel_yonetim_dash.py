@@ -61,3 +61,22 @@ plt.figure()
 shap.plots.beeswarm(shap_values, show=False)
 st.pyplot(plt.gcf())
 
+import streamlit as st
+import streamlit.components.v1 as components
+
+# Örnek gözlem seçimi
+index = st.slider("🧬 Force plot için örnek seçin", 0, len(X_test) - 1, 0)
+instance = X_test.iloc[index]
+
+# SHAP force plot üretimi
+force_plot_html = shap.plots.force(
+    explainer.expected_value,           # modelin genel tahmini
+    shap_values[index].values,          # o örneğin katkı değerleri
+    instance,                           # özellik değerleri
+    matplotlib=False                    # HTML çıktısı
+)
+
+# Streamlit'e gömme
+st.subheader("🔎 SHAP Force Plot – Tahminin Açıklaması")
+components.html(force_plot_html.html(), height=300, scrolling=True)
+
