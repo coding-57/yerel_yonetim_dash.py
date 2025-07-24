@@ -66,11 +66,5 @@ plt.figure()
 shap.plots.bar(shap_values, show=False)
 st.pyplot(plt.gcf())
 
-# waterfall plot
-plt.figure()
-shap.plots.waterfall(shap_values[0], show=False)
-st.pyplot(plt.gcf())
-
-
 
 
