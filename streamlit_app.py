@@ -56,6 +56,8 @@ explainer = shap.Explainer(model, X_train)
 shap_values = explainer(X_test)
 
 # SHAP beeswarm plot
-st.markdown("**Özelliklerin Tahmine Katkısı (SHAP Beeswarm Plot):**")
-fig_shap = shap.plots.beeswarm(shap_values, show=False)
-st.pyplot(fig_shap)
+import matplotlib.pyplot as plt
+plt.figure()
+shap.plots.beeswarm(shap_values, show=False)
+st.pyplot(plt.gcf())
+
