@@ -68,28 +68,3 @@ import streamlit.components.v1 as components
 index = st.slider("🧬 Force plot için örnek seçin", 0, len(X_test) - 1, 0)
 instance = X_test.iloc[index]
 
-import shap
-import streamlit as st
-import streamlit.components.v1 as components
-
-# Modelinize göre shap_values üretildiğini varsayalım
-explainer = shap.Explainer(model, X_train)
-shap_values = explainer(X_test)
-
-# Örnek gözlem seçimi
-index = st.slider("🧬 İncelenecek gözlemi seçin", 0, len(X_test)-1, 0)
-instance = X_test.iloc[index]
-
-import streamlit as st
-import streamlit.components.v1 as components
-
-st.set_page_config(layout="wide")
-st.title("Yerel Yönetim Harcamaları – SHAP Force Plot")
-
-# force_plot.html dosyasını oku
-with open("force_plot.html", "r", encoding="utf-8") as f:
-    html_content = f.read()
-
-# Streamlit'e göm
-components.html(html_content, height=400, scrolling=True)
-
