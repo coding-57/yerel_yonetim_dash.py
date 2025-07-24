@@ -68,15 +68,26 @@ import streamlit.components.v1 as components
 index = st.slider("🧬 Force plot için örnek seçin", 0, len(X_test) - 1, 0)
 instance = X_test.iloc[index]
 
-# SHAP force plot üretimi
-force_plot_html = shap.plots.force(
-    explainer.expected_value,           # modelin genel tahmini
-    shap_values[index].values,          # o örneğin katkı değerleri
-    instance,                           # özellik değerleri
-    matplotlib=False                    # HTML çıktısı
+import shap
+import streamlit as st
+import streamlit.components.v1 as components
+
+# Modelinize göre shap_values üretildiğini varsayalım
+explainer = shap.Explainer(model, X_train)
+shap_values = explainer(X_test)
+
+# Örnek gözlem seçimi
+index = st.slider("🧬 İncelenecek gözlemi seçin", 0, len(X_test)-1, 0)
+instance = X_test.iloc[index]
+
+# Etkileşimli force plot üretimi (matplotlib=False ile!)
+plot_html = shap.plots.force(
+    explainer.expected_value,
+    shap_values[index].values,
+    instance,
+    matplotlib=False
 )
 
-# Streamlit'e gömme
+# Streamlit'e HTML olarak göm
 st.subheader("🔎 SHAP Force Plot – Tahminin Açıklaması")
-components.html(force_plot_html.html(), height=300, scrolling=True)
-
+components.html(plot_html.html(), height=300)
