@@ -80,14 +80,16 @@ shap_values = explainer(X_test)
 index = st.slider("🧬 İncelenecek gözlemi seçin", 0, len(X_test)-1, 0)
 instance = X_test.iloc[index]
 
-# Etkileşimli force plot üretimi (matplotlib=False ile!)
-plot_html = shap.plots.force(
-    explainer.expected_value,
-    shap_values[index].values,
-    instance,
-    matplotlib=False
-)
+import streamlit as st
+import streamlit.components.v1 as components
 
-# Streamlit'e HTML olarak göm
-st.subheader("🔎 SHAP Force Plot – Tahminin Açıklaması")
-components.html(plot_html.html(), height=300)
+st.set_page_config(layout="wide")
+st.title("Yerel Yönetim Harcamaları – SHAP Force Plot")
+
+# force_plot.html dosyasını oku
+with open("force_plot.html", "r", encoding="utf-8") as f:
+    html_content = f.read()
+
+# Streamlit'e göm
+components.html(html_content, height=400, scrolling=True)
+
